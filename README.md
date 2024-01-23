@@ -11,8 +11,8 @@
 # Features:
 <ul>
   <li>Membership Registration</li>
-  <li>Product Catalogue</li>
-  <li>Shopping Cart</li>
+  <li>Product Catalogue - Wen Jing</li>
+  <li>Shopping Cart - Sharon</li>
   <li>Checkout</li>
 </ul>
 

@@ -15,3 +15,6 @@
   <li>Shopping Cart</li>
   <li>Checkout</li>
 </ul>
+
+Please choose one features
+first come first serve

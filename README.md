@@ -10,7 +10,7 @@
 
 # Features:
 <ul>
-  <li>Membership Registration</li>
+  <li>Membership Registration - Rachelle</li>
   <li>Product Catalogue - Wen Jing</li>
   <li>Shopping Cart - Sharon</li>
   <li>Checkout</li>

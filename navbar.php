@@ -6,9 +6,9 @@ $content2 = "<li class='nav-item'>
 		     <a class='nav-link' href='register.php'>Sign Up</a></li>
 			 <li class='nav-item'>
 		     <a class='nav-link' href='login.php'>Login</a></li>";
+$content3 = "Gifted Treasure<br />";
 
 if(isset($_SESSION["ShopperName"])) { 
-	//To Do 1 (Practical 2) - 
     //Display a greeting message, Change Password and logout links 
     //after shopper has logged in.
 	$content1 = "Welcome <b>$_SESSION[ShopperName]</b>";
@@ -23,13 +23,16 @@ if(isset($_SESSION["ShopperName"])) {
     }
 }
 ?>
-<!-- To Do 3 (Practical 1) - 
-     Display a navbar which is visible before or after collapsing -->
+<!-- Display a navbar which is visible before or after collapsing -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
         <!-- Dynamic Text Display -->
+        
         <span class="navbar-text ms-md-2" 
-        style="color:#F7BE81; max-width: 100%;">
+        style="color:#F7BE81;">
+        <a href="index.php" style="color:#F7BE81; text-decoration: none !important; font-size: 30px;">
+            <?php echo $content3; ?>
+        </a>
         <?php echo $content1; ?>
         </span>
         <!-- Toggler/Collapsibe Button -->
@@ -39,8 +42,7 @@ if(isset($_SESSION["ShopperName"])) {
         </button>
     </div>
 </nav>
-<!-- To Do 4 (Practical 1) - 
-     Define a collapsible navbar -->
+<!-- Define a collapsible navbar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
         <!-- Collapsible part of navbar -->

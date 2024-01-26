@@ -10,6 +10,10 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <!-- site specific cascading stylesheet -->
     <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    
 </head>
 
 
@@ -24,7 +28,7 @@
         </div>
         <!-- 3rd Row -->
         <div class="row">
-            <div class="col-sm-12" style="padding:15px;">
+           
             <!-- Define customised content here -->
             <!-- closing of this column and row is in footer.php -->
     

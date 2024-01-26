@@ -10,10 +10,10 @@
 
 # Features:
 <ul>
-  <li>Membership Registration - Rachelle</li>
+  <li>Membership Registration - Li Wei</li>
   <li>Product Catalogue - Wen Jing</li>
   <li>Shopping Cart - Sharon</li>
-  <li>Checkout</li>
+  <li>Checkout - Rachelle</li>
 </ul>
 
 Please choose one features

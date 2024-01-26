@@ -28,7 +28,7 @@
             </div>
             <div>
                 <h6 class="text-uppercase">Email</h6>
-                <p>GIFTREASURE@GMAIL.COM</p>
+                <p>GIFTEDTREASURES@GMAIL.COM</p>
             </div>
         </div>
     </div>

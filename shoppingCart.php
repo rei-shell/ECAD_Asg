@@ -43,6 +43,7 @@ if (isset($_SESSION["Cart"])) {
 			
 		// To Do 3 (Practical 4): 
 		// Display the shopping cart content
+		$shippingFee = 5;
 		$subTotal = 0; // Declare a variable to compute subtotal before tax
 		echo "<tbody>"; // Start of table's body section
 		while ($row = $result->fetch_array()) {
@@ -82,18 +83,42 @@ if (isset($_SESSION["Cart"])) {
 				
 			// Accumulate the running sub-total
 			$subTotal += $row["Total"];
+
+
 		}
 		echo "</tbody>"; // End of table's body section
 		echo "</table>"; // End of table
 		echo "</div>"; // End of Bootstrap responsive table
-				
+			
+	
 		// To Do 4 (Practical 4): 
 		// Display the subtotal at the end of the shopping cart
 		echo "<p style='text-align:right; font-size:20px'>
 			  Subtotal = S$". number_format($subTotal,2);
-		$_SESSION["Subtotal"] = round($subTotal,2);
+
+		if ($subTotal > 200) {
+			$shippingFee = 0; // Waive the shipping fee if subtotal is more than S$200
+			echo "<p style='text-align:right; font-size:20px'>Free Shipping"; // Adjust the text accordingly
+		} else {
+			echo "<p style='text-align:right; font-size:20px'>Shipping Fee: S$" . number_format($shippingFee, 2);
+		}
+
+		$totalWithShipping = $subTotal + $shippingFee;
+
+		echo "<p style='text-align:right; font-size:20px'>Total = S$". number_format($totalWithShipping, 2);
+
+		// Update session subtotal including shipping fee
+		$_SESSION["Subtotal"] = round($totalWithShipping, 2);		
+
+
 		// To Do 7 (Practical 5):
 		// Add PayPal Checkout button on the shopping cart page
+		echo "<form method='post' action='checkoutProcess.php'>";
+		echo "<input type='image' style='float:right;' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'>";
+		echo "</form></p>";
+
+
+
 				
 	}
 	else {

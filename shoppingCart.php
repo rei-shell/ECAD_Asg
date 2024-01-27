@@ -108,7 +108,7 @@ if (isset($_SESSION["Cart"])) {
 		echo "<p style='text-align:right; font-size:20px'>Total = S$". number_format($totalWithShipping, 2);
 
 		// Update session subtotal including shipping fee
-		$_SESSION["Subtotal"] = round($totalWithShipping, 2);		
+		$_SESSION["SubTotal"] = round($totalWithShipping, 2);		
 
 
 		// To Do 7 (Practical 5):

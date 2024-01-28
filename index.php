@@ -5,7 +5,7 @@ session_start();
 include("header.php"); 
 ?>
 <img src="Images/logo.png" class="img-fluid" 
-     style="display:block; margin:auto;"/>
+     style="display:block; margin:auto; padding: 15px;"/>
 
 <?php 
 // Include the Page Layout footer

@@ -10,8 +10,7 @@ $pwd = $_POST["password"];
 
 //Include the PHP file that establishes database connection handle: $conn
 include_once("mysql_conn.php");
-
-// Define the INSERT SQL statement
+// Define select SQL statement
 $qry = "SELECT Name, ShopperID, Email, Password from shopper";
 $result = $conn->query($qry);
 
@@ -19,7 +18,7 @@ $isfound = false;
 
 while ($row = $result->fetch_array()){
 	// To Do 1 (Practical 2): Validate login credentials with database
-	if (($email == $row['Email']) && ($pwd == $row['Password'])) {
+	if (($email == $row['Email']) && ($pwd==$row['Password'])) {
 		// Save user's info in session variables
 		$_SESSION["ShopperName"] = $row['Name'];
 		$_SESSION["ShopperID"] = $row['ShopperID'];

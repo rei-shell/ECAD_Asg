@@ -5,9 +5,9 @@ $PayPalApiPassword 	= 'KWGAXR6TEERY9SXG'; 		//Paypal API password
 $PayPalApiSignature = 'A4GDhjiwsB8e0UE95y.hKSyLIckvApdid3YHZKtC1k0NGgXTi1Fk.ElA'; 		//Paypal API Signature
 $PayPalCurrencyCode = 'SGD'; //Paypal Currency Code
 //URL to redirect to after PayPal has complete the online payment
-$PayPalReturnURL 	= 'http://localhost:8081/Mamaya/checkoutProcess.php'; 
+$PayPalReturnURL 	= 'http://localhost:8081/asg/ECAD_Asg-1/checkoutProcess.php'; 
 //URL to redirect to if user clicks cancel                
-$PayPalCancelURL 	= 'http://localhost:8081/Mamaya/shoppingCart.php'; 
+$PayPalCancelURL 	= 'http://localhost:8081/asg/ECAD_Asg-1/shoppingCart.php'; 
                 	
 function PPHttpPost($methodName_, $nvpStr_, $PayPalApiUsername, $PayPalApiPassword, 
                     $PayPalApiSignature, $PayPalMode) {

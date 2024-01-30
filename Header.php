@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gifted Treasures Gift Store</title>
+    <link rel="icon" href="Images/logo.png">
     <!-- Lastest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Link to compiled Bootstrap Javascript downloaded -->

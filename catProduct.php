@@ -3,12 +3,12 @@ session_start(); // Detect the current session
 include("header.php"); // Include the Page Layout header
 ?>
 <!-- Create a container, 60% width of viewport -->
-<div style='width:60%; margin:auto;'>
+<div class='container' style='width:60%; margin:auto;'>
     <!-- Display Page Header - Category's name is read 
          from the query string passed from the previous page -->
-    <div class="row" style="padding:5px">
-        <div class="col-12">
-            <span class="page-title"><?php echo $_GET['catName']; ?></span>
+    <div class='row' style='padding:5px'>
+        <div class='col-12'>
+            <span class='page-title'><?php echo $_GET['catName']; ?></span>
         </div>
     </div>
 
@@ -39,7 +39,7 @@ include("header.php"); // Include the Page Layout header
         $product = "productDetails.php?pid={$row['ProductID']}";
         $formattedPrice = number_format($row["Price"], 2);
         $onOffer = $row["Offered"] == 1 ? "<span style='color:green;'>On Offer</span><br>" : "";
-        echo "<div class='col-8'>"; // 67% of row width
+        echo "<div class='col-md-8'>"; // 67% of row width on medium and larger screens
         echo "<p>{$onOffer}<a href='{$product}'>{$row['ProductTitle']}</a></p>";
         
         if ($row["Offered"] == 1) {
@@ -54,8 +54,8 @@ include("header.php"); // Include the Page Layout header
 
         // Right column - display the product's image
         $img = "./Images/products/{$row['ProductImage']}";
-        echo "<div class='col-4'>"; // 33% of row width
-        echo "<img src='{$img}' alt='Product Image'/>";
+        echo "<div class='col-md-4'>"; // 33% of row width on medium and larger screens
+        echo "<img src='{$img}' alt='Product Image' class='img-fluid'/>";
         echo "</div>";
 
         echo "</div>"; // end of a row
@@ -66,4 +66,3 @@ include("header.php"); // Include the Page Layout header
     echo "</div>"; // End of the container
     include("footer.php"); // Include the Page Layout footer
     ?>
-

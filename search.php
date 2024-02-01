@@ -38,7 +38,8 @@ if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") {
     FROM product p
     INNER JOIN catproduct cp ON p.ProductID = cp.ProductID
     INNER JOIN category c ON cp.CategoryID = c.CategoryID
-    WHERE ProductTitle LIKE '%$SearchText%' OR productDesc LIKE '%$SearchText%' 
+    INNER JOIN productspec ps ON p.ProductID = ps.ProductID
+    WHERE ProductTitle LIKE '%$SearchText%' OR productDesc LIKE '%$SearchText%' OR Price LIKE '%$SearchText%' OR SpecVal LIKE '%$SearchText%'
     ORDER BY ProductTitle";
 
     $result = $conn->query($qry);

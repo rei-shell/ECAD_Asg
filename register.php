@@ -28,6 +28,18 @@ function validateForm()
             return false; //Cancel submission
         }
     }
+
+    // get dob from the input
+    var dob = new Date($("#dob").val());
+    // Get the current date
+    var currentDate = new Date();
+    // To Do 3 - check if date of birth is valid
+    if (dob == "Invalid Date" || dob > currentDate){
+        alert("Invalid date of birth");
+        return false//Cancel submission
+    }
+
+
     return true;  // No error found
 }
 </script>
@@ -52,6 +64,12 @@ function validateForm()
         <div class="col-sm-9">
             <textarea class="form-control" name="address" id="address"
                       cols="25" rows="4" ></textarea>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="dob">Date of birth:</label>
+        <div class="col-sm-9">
+        <input class="form-control" name="dob" id="dob" type="date" required/>(required)
         </div>
     </div>
     <div class="mb-3 row">

@@ -53,17 +53,18 @@ function getTaxRate($conn, $currentDate) {
 
                                 echo "<div id='myShopCart' style='margin:auto'>"; // Start a container
                                 if (isset($_SESSION["Cart"])) {
-                                    include_once("mysql_conn.php");
+                                    //include_once("mysql_conn.php");
                                    $qry = 'SELECT sc.*, p.Offered, p.OfferedPrice, (sc.Price * sc.Quantity) AS Total
 											FROM ShopCartItem sc
 											JOIN Product p ON sc.ProductID = p.ProductID
 											WHERE sc.ShopCartID=?';
 
-                                    $stmt = $conn->prepare($qry);
-                                    $stmt->bind_param("i", $_SESSION["Cart"]);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
-                                    $stmt->close();
+                                        $stmt = $conn->prepare($qry);
+                                        $stmt->bind_param("i", $_SESSION["Cart"]);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        $stmt->close();
+                                
 
                                     if ($result->num_rows > 0) {
 
@@ -246,4 +247,5 @@ function getTaxRate($conn, $currentDate) {
 
 <?php
 include("footer.php"); 
+$conn->close();
 ?>

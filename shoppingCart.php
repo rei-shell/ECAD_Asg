@@ -3,6 +3,19 @@
 // Current session is detected in "cartFunctions.php, hence need not start session here.
 include_once("cartFunctions.php");
 include("header.php"); // Include the Page Layout header
+
+function getProductImage($conn, $productID) {
+    $qry = "SELECT ProductImage FROM Product WHERE ProductID = ?";
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("i", $productID);
+    $stmt->execute();
+    $stmt->bind_result($productImage);
+    $stmt->fetch();
+    $stmt->close();
+
+    return $productImage;
+}
+
 ?>
 
 <div class='container py-5'>
@@ -40,10 +53,15 @@ include("header.php"); // Include the Page Layout header
 										$row["ShipCharge"] = 0;                                      
 										$subTotal = 0;
 
+
                                         while ($row = $result->fetch_array()) {
+											$productImage = getProductImage($conn, $row["ProductID"]);
+											$img = "./Images/Products/$productImage";
+
+
                                             echo "<div class='row mb-4 d-flex justify-content-between align-items-center'>";
                                             echo "<div class='col-md-2 col-lg-2 col-xl-2'>";
-                                            echo "<img src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp' class='img-fluid rounded-3' alt='Cotton T-shirt'/>";
+                                            echo "<img src='$img' class='img-fluid rounded-3' alt='$row[Name]'/>";
                                             echo "</div>";
                                             echo "<div class='col-md-3 col-lg-3 col-xl-3'>";
                                             echo "<h6 class='text-black mb-0'>$row[Name]</h6>";
@@ -68,7 +86,7 @@ include("header.php"); // Include the Page Layout header
                                         
                                             $row["Total"] = $row["Price"] * $row["Quantity"];
                                             $formattedPrice = number_format($row["Total"], 2);
-                                        
+
                                             echo "<div class='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>";
                                             echo "<h6 class='mb-0'>$ $formattedPrice</h6>";
                                             echo "</div>";
@@ -187,6 +205,7 @@ include("header.php"); // Include the Page Layout header
             </div>
     </div>
 
+	
 
 <?php
 include("footer.php"); 

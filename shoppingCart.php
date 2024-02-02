@@ -160,7 +160,7 @@ function getTaxRate($conn, $currentDate) {
                     </div>
 
 					<div class='col-lg-4 bg-grey'>
-						<div class='p-5'>
+						<div class='p-3'>
 							<h3 class='fw-bold mb-5 mt-2 pt-1'>Summary</h3>
 							<hr class='my-4' />
 
@@ -182,8 +182,13 @@ function getTaxRate($conn, $currentDate) {
 							<div class='mb-4 pb-2'>
 								<form method='post' action='shoppingCart.php'>";
 						echo "<select class='form-control' name='shipping_option' onChange='this.form.submit()'>
+<<<<<<< HEAD
 								<option value='standard' " . (isset($_POST["shipping_option"]) == 'standard' ? 'selected' : '') . ">Standard Delivery - $5.00</option>
 								<option value='express' " . (isset($_POST["shipping_option"]) == 'express' ? 'selected' : '') . ">Express Delivery - $8.00</option>
+=======
+								<option value='standard' " . ($_POST["shipping_option"] == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day) - $3.00</option>
+								<option value='express' " . ($_POST["shipping_option"] == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $5.00</option>
+>>>>>>> 304e9de5412c84fed3c28b3e255b247817527e01
 							</select>
 							</form>
 						</div>";
@@ -191,13 +196,13 @@ function getTaxRate($conn, $currentDate) {
 						// Set the shipping charge based on the selected option
 						if (isset($_POST["shipping_option"])) {
 							if ($_POST["shipping_option"] == "standard") {
-								$row["ShipCharge"] = 5;
+								$row["ShipCharge"] = 3;
 							} else if ($_POST["shipping_option"] == "express") {
-								$row["ShipCharge"] = 8;
+								$row["ShipCharge"] = 5;
 							}
 						}
 						else{
-								$row["ShipCharge"] = 5;
+								$row["ShipCharge"] = 3;
 							}
 					}
 

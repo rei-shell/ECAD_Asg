@@ -177,7 +177,8 @@ function getTaxRate($conn, $currentDate) {
 								$row["ShipCharge"] = 0;
 								echo "<div class='d-flex justify-content-between mb-4'>
 								<h5 class='text-uppercase'>Shipping</h5>
-								<h5>Free</h5>
+                                <h5>Free <span style='font-size:8pt'> (Express Delivery 2 hours)</h5>
+                        
 							</div>"; // Adjust the text accordingly
 						} else {
 
@@ -215,12 +216,13 @@ function getTaxRate($conn, $currentDate) {
 						<h5>$"  . number_format($taxAmount, 2) ."</h5>
 						</div>";
 
+						$_SESSION["SubTotal"] = $subTotal;
 						$_SESSION["Tax"] = $taxAmount;
 						$_SESSION["ShipCharge"] = $row["ShipCharge"];
 						$totalWithShipping = $subTotal + $row["ShipCharge"] + $taxAmount;
 
 						// Update session subtotal including shipping fee
-						$_SESSION["SubTotal"] = round($totalWithShipping, 2);		
+						$_SESSION["FinalTotal"] = round($totalWithShipping, 2);		
 						// Include the Page Layout footer
 						?>
 						<hr class='my-4' />

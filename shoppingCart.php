@@ -214,8 +214,8 @@ function getTaxRate($conn, $currentDate) {
 						<h5>$"  . number_format($taxAmount, 2) ."</h5>
 						</div>";
 
-						
-
+						$_SESSION["Tax"] = $taxAmount;
+						$_SESSION["ShipCharge"] = $row["ShipCharge"];
 						$totalWithShipping = $subTotal + $row["ShipCharge"] + $taxAmount;
 
 						// Update session subtotal including shipping fee

@@ -1,6 +1,6 @@
 </div>
 </div>
-<div  style="background: #f9ece6; padding-top:30px; margin-top:30px">
+<div  style="background: #f9ece6; padding-top:30px; margin-top:50px">
 <section class="footer container">
     <div class="footer-box">
         <h3>The Company</h3>

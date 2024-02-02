@@ -7,7 +7,7 @@ include("header.php"); // Include the Page Layout header
     <!-- Display Page Header - Category's name is read 
          from the query string passed from the previous page -->
     <div class='row' style='padding:5px'>
-        <div class='col-12'>
+        <div class='col-12' style='margin-top:40px'>
             <span class='page-title'><?php echo $_GET['catName']; ?></span>
         </div>
     </div>

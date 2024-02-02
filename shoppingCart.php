@@ -16,6 +16,18 @@ function getProductImage($conn, $productID) {
     return $productImage;
 }
 
+function getTaxRate($conn, $currentDate) {
+    $qry = "SELECT TaxRate FROM GST WHERE EffectiveDate <= ? ORDER BY EffectiveDate DESC LIMIT 1";
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("s", $currentDate);
+    $stmt->execute();
+    $stmt->bind_result($taxRate);
+    $stmt->fetch();
+    $stmt->close();
+
+    return $taxRate;
+}
+
 ?>
 
 <div class='container py-5'>
@@ -183,37 +195,30 @@ function getProductImage($conn, $productID) {
 							} else if ($_POST["shipping_option"] == "express") {
 								$row["ShipCharge"] = 8;
 							}
-							
 						}
 						else{
 								$row["ShipCharge"] = 5;
-
 							}
-
-						
 					}
+
+					$currentDate = date("Y-m-d");
+					$taxRate = getTaxRate($conn, $currentDate);
+					$taxAmount = ($subTotal * $taxRate) / 100;
+
 
 					echo "<div class='d-flex justify-content-between mb-4'>
 						<h5 class='text-uppercase'>Tax</h5>
-						<h5>$ <?php echo number_format($subTotal, 2); ?></h5>
+						<h5>$"  . number_format($taxAmount, 2) ."</h5>
 						</div>";
 
 						
 
-						$totalWithShipping = $subTotal + $row["ShipCharge"];
+						$totalWithShipping = $subTotal + $row["ShipCharge"] + $taxAmount;
 
 						// Update session subtotal including shipping fee
 						$_SESSION["SubTotal"] = round($totalWithShipping, 2);		
-
-
 						// Include the Page Layout footer
 						?>
-
-
-
-
-						
-
 						<hr class='my-4' />
 						<div class='d-flex justify-content-between mb-5'>
 						<h5 class='text-uppercase'>Total price</h5>

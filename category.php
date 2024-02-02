@@ -3,7 +3,7 @@ session_start(); // Detect the current session
 include("header.php"); // Include the Page Layout header
 ?>
 <!-- Create a container, 60% width of viewport -->
-<div style="width:60%; margin:auto;">
+<div style="width:60%; margin:auto; margin-top:40px;">
 <!-- Display Page Header -->
 <div class="row" style="padding:5px"> <!-- Start of header row -->
     <div class="col-12">

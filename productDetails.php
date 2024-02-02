@@ -22,7 +22,7 @@ while ($row = $result->fetch_array()) {
     // Display Page header -
     // Product's name is read from the "ProductTitle" column of "Product" table.
     echo "<div class='row'>";
-    echo "<div class='col-sm-12' style='padding:5px'>";
+    echo "<div class='col-sm-12' style='padding:10px; padding-top: 40px;'>";
     echo "<span class='page-title'>$row[ProductTitle]</span>";
     echo "</div>";
     echo "</div>";
@@ -62,7 +62,7 @@ while ($row = $result->fetch_array()) {
     echo "<input type='hidden' name='action' value='add'/>";
     echo "<input type='hidden' name ='product_id' value='$pid'/>";
     echo "Quantity: <input type='number' name='quantity' value='1' min='1' max='10' style='width:40px' required/>";
-    echo "<button type='submit' class='btn btn-primary'>Add to Cart</button>";
+    echo "<button type='submit' class='btn btn-primary' style='margin-left:10px'>Add to Cart</button>";
     echo "</form>";
     echo "</div>"; // End of right column
 }

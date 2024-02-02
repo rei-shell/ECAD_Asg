@@ -65,10 +65,10 @@ function validateForm() {
 }
 </script>
 
-<form action="checkProfile.php" method="post" onsubmit="return validateForm()">
+<form action="checkProfile.php" method="post" onsubmit="return validateForm()" style="padding-left:50px; padding-right:50px;">
     <!-- 1st row header row -->
     <div class="mb-3 row">
-        <div class="col-sm-9 offset-sm-3">
+        <div class="col-sm-9 offset-sm-3" style="margin-top:40px; margin-bottom: 15px;">
             <span class="page-title">Edit my profile</span>
         </div>
     </div>

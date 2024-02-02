@@ -8,7 +8,7 @@ include("header.php"); // Include the Page Layout header
     <form name="frmSearch" method="get" action="">
         <!-- 1st row for Page Title -->
         <div class="mb-3 row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="col-sm-9 offset-sm-3" style="margin-top:40px;">
                 <span class="page-title">Product Search</span>
             </div>
         </div> <!-- End of 1st row -->
@@ -20,7 +20,7 @@ include("header.php"); // Include the Page Layout header
                 <input class="form-control" name="keywords" id="keywords" type="search" />
             </div>
             <div class="col-sm-3">
-                <button type="submit">Search</button>
+                <button type="submit" style="border: none;border-radius: 20px;padding: 5px;padding-left: 15px;padding-right: 15px;background: #f9ece6;">Search</button>
             </div>
         </div> <!-- End of 2nd row -->
 

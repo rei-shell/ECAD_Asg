@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include("header.php"); // Include the Page Layout header
 include_once("myPayPal.php"); // Include the file that contains PayPal settings
@@ -9,33 +10,36 @@ if($_POST) //Post Data received from Shopping cart page.
 	// To Do 6 (DIY): Check to ensure each product item saved in the associative
 	//                array is not out of stock
 	
-	foreach($_SESSION['Items'] as $key=>$item) 
-	{
-		$pid = $item["productId"];
-		$qty = $item["quantity"];
-		$productName = $item["name"];
+	if (isset($_SESSION['Items']) && is_array($_SESSION['Items'])) {
+        
+		foreach($_SESSION['Items'] as $key=>$item) 
+		{
+			$pid = $item["productId"];
+			$qty = $item["quantity"];
+			$productName = $item["name"];
 
-		$qryStock = "SELECT Quantity FROM Product WHERE ProductID=?";
-		$stmtStock = $conn->prepare($qryStock);
-		$stmtStock->bind_param("i", $pid);
-		$stmtStock->execute();
-		$resultStock = $stmtStock->get_result();
-		$stmtStock->close();
+			$qryStock = "SELECT Quantity FROM Product WHERE ProductID=?";
+			$stmtStock = $conn->prepare($qryStock);
+			$stmtStock->bind_param("i", $pid);
+			$stmtStock->execute();
+			$resultStock = $stmtStock->get_result();
+			$stmtStock->close();
 
-		if($resultStock-> num_rows >0){
-			$row = $resultStock->fetch_assoc();
-			$currentStock = $row['Quantity'];
+			if($resultStock-> num_rows >0){
+				$row = $resultStock->fetch_assoc();
+				$currentStock = $row['Quantity'];
 
-			if ($currentStock < $qty){
-				echo "Product $pid : $productName is out of stock! <br />";
-				echo "Please return to shopping cart to amend your purchase. <br />";
-				include("footer.php");
-				exit;
+				if ($currentStock < $qty){
+					echo "Product $pid : $productName is out of stock! <br />";
+					echo "Please return to shopping cart to amend your purchase. <br />";
+					include("footer.php");
+					exit;
+				}
+				
+
 			}
-			
 
 		}
-
 	}
 
 	// End of To Do 6
@@ -43,13 +47,15 @@ if($_POST) //Post Data received from Shopping cart page.
 	$paypal_data = '';
 	// Get all items from the shopping cart, concatenate to the variable $paypal_data
 	// $_SESSION['Items'] is an associative array
-	foreach($_SESSION['Items'] as $key=>$item) {
-		$paypal_data .= '&L_PAYMENTREQUEST_0_QTY'.$key.'='.urlencode($item["quantity"]);
-	  	$paypal_data .= '&L_PAYMENTREQUEST_0_AMT'.$key.'='.urlencode($item["price"]);
-	  	$paypal_data .= '&L_PAYMENTREQUEST_0_NAME'.$key.'='.urlencode($item["name"]);
-		$paypal_data .= '&L_PAYMENTREQUEST_0_NUMBER'.$key.'='.urlencode($item["productId"]);
+	if (isset($_SESSION['Items']) && is_array($_SESSION['Items'])) {
+		foreach($_SESSION['Items'] as $key=>$item) {
+			$paypal_data .= '&L_PAYMENTREQUEST_0_QTY'.$key.'='.urlencode($item["quantity"]);
+			$paypal_data .= '&L_PAYMENTREQUEST_0_AMT'.$key.'='.urlencode($item["price"]);
+			$paypal_data .= '&L_PAYMENTREQUEST_0_NAME'.$key.'='.urlencode($item["name"]);
+			$paypal_data .= '&L_PAYMENTREQUEST_0_NUMBER'.$key.'='.urlencode($item["productId"]);
+		}
 	}
-	
+		
 	// To Do 1A: Compute GST amount 7% for Singapore, round the figure to 2 decimal places
 	$_SESSION["Tax"] = round($_SESSION["SubTotal"]*0.09, 2);
 
@@ -84,12 +90,13 @@ if($_POST) //Post Data received from Shopping cart page.
 			$paypalmode = '.sandbox';
 		else
 			$paypalmode = '';
-				
+		
 		//Redirect user to PayPal store with Token received.
 		$paypalurl ='https://www'.$paypalmode. 
 		            '.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.
 					$httpParsedResponseAr["TOKEN"].'';
 		header('Location: '.$paypalurl);
+		
 	}
 	else {
 		//Show error message
@@ -98,6 +105,7 @@ if($_POST) //Post Data received from Shopping cart page.
 		echo "<pre>".print_r($httpParsedResponseAr)."</pre>";
 	}
 }
+
 
 //Paypal redirects back to this page using ReturnURL, We should receive TOKEN and Payer ID
 if(isset($_GET["token"]) && isset($_GET["PayerID"])) 
@@ -263,4 +271,5 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 }
 
 include("footer.php"); // Include the Page Layout footer
+ob_end_flush();
 ?>

@@ -5,7 +5,9 @@ include_once("cartFunctions.php");
 include("header.php"); // Include the Page Layout header
 include_once("mysql_conn.php"); 
 $subTotal = 0;
+
 $totalQuantity = 0; // Initialize total quantity variable
+
 
 
 
@@ -47,7 +49,7 @@ function getTaxRate($conn, $currentDate) {
                                 <div class='d-flex justify-content-between align-items-center mb-3'>
                                     <h1 class='fw-bold mb-0 text-black'>Shopping Cart</h1>
                                 </div>
-                                <p style="display: flex;flex-direction: row-reverse;"> Total Items: <?php echo $totalQuantity ?></p>
+                                <!-- <p style="display: flex;flex-direction: row-reverse;"> Total Items: <?php echo $totalQuantity?></p> -->
 
                                 <hr class='my-4' />
                                 <?php
@@ -56,6 +58,7 @@ function getTaxRate($conn, $currentDate) {
                                     header("Location: login.php");
                                     exit;
                                 }
+
 
                                 echo "<div id='myShopCart' style='margin:auto'>"; // Start a container
                                 if (isset($_SESSION["Cart"])) {
@@ -98,6 +101,9 @@ function getTaxRate($conn, $currentDate) {
                                                 $selected = ($i == $row["Quantity"]) ? "selected" : "";
                                                 echo "<option value='$i' $selected>$i</option>";
                                             }
+
+                                            $totalQuantity += $row["Quantity"];
+
                                             echo "</select>";
                                         
                                             echo "</div>";
@@ -107,7 +113,6 @@ function getTaxRate($conn, $currentDate) {
                                         
                                             echo "</div>";
 
-                                            $totalQuantity += $row["Quantity"];
 
 											 if ($row["Offered"] == 1) {
 												$row["Total"] = $row["OfferedPrice"] * $row["Quantity"];
@@ -138,14 +143,14 @@ function getTaxRate($conn, $currentDate) {
                                         
                                            
                                             $subTotal += $row["Total"];
-
                                         }
-
+                                        
 
                                         echo "</div>"; // End of the container
                                         echo "</div>"; // End of card-body
                                         echo "</div>"; // End of card
                                         echo "</div>"; // End of col-lg-8
+
                                     } else {
 										echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
 										echo "</div>"; // End of container when the cart is empty
@@ -174,7 +179,9 @@ function getTaxRate($conn, $currentDate) {
 
 					<div class='col-lg-4 bg-grey'>
 						<div class='p-3'>
-							<h3 class='fw-bold mb-5 mt-2 pt-1'>Summary</h3>
+							<h3 class='fw-bold mb-3 mt-2 pt-1'>Summary</h3>
+                             <?php echo "<p style='display: flex; flex-direction: row-reverse;'> Total Items: $totalQuantity</p>" ?>
+
 							<hr class='my-4' />
                         
 						<div class='d-flex justify-content-between mb-4'>

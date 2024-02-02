@@ -5,6 +5,10 @@ include_once("cartFunctions.php");
 include("header.php"); // Include the Page Layout header
 include_once("mysql_conn.php"); 
 $subTotal = 0;
+$totalQuantity = 0; // Initialize total quantity variable
+
+
+
 function getProductImage($conn, $productID) {
     $qry = "SELECT ProductImage FROM Product WHERE ProductID = ?";
     $stmt = $conn->prepare($qry);
@@ -40,9 +44,11 @@ function getTaxRate($conn, $currentDate) {
                     <div class='row g-0'>
                         <div class='col-12'>
                             <div class='p-5'>
-                                <div class='d-flex justify-content-between align-items-center mb-5'>
+                                <div class='d-flex justify-content-between align-items-center mb-3'>
                                     <h1 class='fw-bold mb-0 text-black'>Shopping Cart</h1>
                                 </div>
+                                <p style="display: flex;flex-direction: row-reverse;"> Total Items: <?php echo $totalQuantity ?></p>
+
                                 <hr class='my-4' />
                                 <?php
                                 if (!isset($_SESSION["ShopperID"])) { // Check if user logged in 
@@ -70,7 +76,6 @@ function getTaxRate($conn, $currentDate) {
 
 										$row["ShipCharge"] = 0;                                      
 										$subTotal = 0;
-
 
                                         while ($row = $result->fetch_array()) {
 											$productImage = getProductImage($conn, $row["ProductID"]);
@@ -101,6 +106,9 @@ function getTaxRate($conn, $currentDate) {
                                             echo "</form>";
                                         
                                             echo "</div>";
+
+                                            $totalQuantity += $row["Quantity"];
+
 											 if ($row["Offered"] == 1) {
 												$row["Total"] = $row["OfferedPrice"] * $row["Quantity"];
 
@@ -128,7 +136,9 @@ function getTaxRate($conn, $currentDate) {
                                             echo "</div>";
                                             echo "</div>";
                                         
+                                           
                                             $subTotal += $row["Total"];
+
                                         }
 
 
@@ -183,15 +193,14 @@ function getTaxRate($conn, $currentDate) {
 						} else {
 
 						echo "<h5 class='text-uppercase mb-3'>Shipping</h5>
-							<div class='mb-4 pb-2'>
-								<form method='post' action='shoppingCart.php'>";
-						echo "<select class='form-control' name='shipping_option' onChange='this.form.submit()'>
-								<option value='standard' " . (isset($_POST["shipping_option"]) == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day)  - $5.00</option>
-								<option value='express' " . (isset($_POST["shipping_option"]) == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $10.00</option>
-
-							</select>
-							</form>
-						</div>";
+                                <div class='mb-4 pb-2'>
+                                    <form method='post' action='shoppingCart.php'>
+                                        <select class='form-control' name='shipping_option' onChange='this.form.submit()'>
+                                            <option value='standard' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day)  - $5.00</option>
+                                            <option value='express' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $10.00</option>
+                                        </select>
+                                    </form>
+                                </div>";
 
 						// Set the shipping charge based on the selected option
 						if (isset($_POST["shipping_option"])) {

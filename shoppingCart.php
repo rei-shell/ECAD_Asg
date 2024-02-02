@@ -3,7 +3,8 @@
 // Current session is detected in "cartFunctions.php, hence need not start session here.
 include_once("cartFunctions.php");
 include("header.php"); // Include the Page Layout header
-
+include_once("mysql_conn.php"); 
+$subTotal = 0;
 function getProductImage($conn, $productID) {
     $qry = "SELECT ProductImage FROM Product WHERE ProductID = ?";
     $stmt = $conn->prepare($qry);
@@ -27,6 +28,7 @@ function getTaxRate($conn, $currentDate) {
 
     return $taxRate;
 }
+
 
 ?>
 
@@ -163,7 +165,7 @@ function getTaxRate($conn, $currentDate) {
 						<div class='p-3'>
 							<h3 class='fw-bold mb-5 mt-2 pt-1'>Summary</h3>
 							<hr class='my-4' />
-
+                        
 						<div class='d-flex justify-content-between mb-4'>
 						<h5 class='text-uppercase'>SubTotal</h5>
 						<h5>$ <?php echo number_format($subTotal, 2); ?></h5>

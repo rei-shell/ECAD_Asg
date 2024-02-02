@@ -37,6 +37,8 @@ include("header.php"); // Include the Page Layout header
         // Left column - display a text link showing the product's name,
         // display the selling price in red in a new paragraph
         $product = "productDetails.php?pid={$row['ProductID']}";
+
+
         $formattedPrice = number_format($row["Price"], 2);
         $onOffer = $row["Offered"] == 1 ? "<span style='color:green;'>On Offer</span><br>" : "";
         echo "<div class='col-md-8'>"; // 67% of row width on medium and larger screens

@@ -10,7 +10,7 @@ $pid=$_GET["pid"]; // Read Product ID from the query string
 
 // Include the PHP file that establishes a database connection handle: $conn
 include_once("mysql_conn.php"); 
-$qry = "SELECT * from product where ProductID=?";
+$qry = "SELECT * FROM product WHERE ProductID = ?";
 $stmt = $conn->prepare($qry);
 $stmt->bind_param("i", $pid); 	// "i" - integer 
 $stmt->execute();
@@ -34,10 +34,11 @@ while ($row = $result->fetch_array()) {
     echo "<p>$row[ProductDesc]</p>";
 
     // Left column - display the product's specification,
-    $qry = "SELECT s.SpecName, ps.SpecVal from productspec ps
-        INNER JOIN specification s ON ps.SpecID=s.SpecID
-        WHERE ps.ProductID=?
-        ORDER BY ps.priority";
+    $qry = "SELECT s.SpecName, ps.SpecVal
+            FROM productspec ps
+            INNER JOIN specification s ON ps.SpecID=s.SpecID
+            WHERE ps.ProductID=?
+            ORDER BY ps.priority";
     $stmt = $conn->prepare($qry);
     $stmt->bind_param("i", $pid); //"i" - integer
     $stmt->execute();
@@ -53,14 +54,19 @@ while ($row = $result->fetch_array()) {
     echo "<div class='col-md-3' style='vertical-align-top; padding:5px'>";
     echo "<p><img src='$img' class='img-fluid'/></p>";
 
-    // Right column - display the product's price
-    $formattedPrice = number_format($row["Price"], 2);
-    echo "Price:<span style='font-weight:bold;color:red;'>S$ $formattedPrice</span>";
+    // Determine if the product is on offer
+    $offered = ($row["OfferedPrice"] != null && $row["OfferedPrice"] < $row["Price"]);
+    $offeredPrice = $offered ? $row["OfferedPrice"] : $row["Price"];
+
+    $formattedDisplayPrice = number_format($offeredPrice, 2);
+    echo "Price:<span style='font-weight:bold;color:red;'>S$ $formattedDisplayPrice</span>";
 
     // To Do 2:  Create a Form for adding the product to the shopping cart. Starting ....
     echo "<form action='cartFunctions.php' method='post'>";
     echo "<input type='hidden' name='action' value='add'/>";
     echo "<input type='hidden' name ='product_id' value='$pid'/>";
+    echo "<input type='hidden' name='offered' value='$offered'/>";
+    echo "<input type='hidden' name='offeredPrice' value='$offeredPrice'/>";
     echo "Quantity: <input type='number' name='quantity' value='1' min='1' max='10' style='width:40px' required/>";
     echo "<button type='submit' class='btn btn-primary'>Add to Cart</button>";
     echo "</form>";
@@ -75,3 +81,4 @@ echo "</div>"; // End of row
 echo "</div>"; // End of container
 include("footer.php"); // Include the Page Layout footer
 ?>
+

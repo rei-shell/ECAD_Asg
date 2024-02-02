@@ -56,24 +56,14 @@ if($_POST) //Post Data received from Shopping cart page.
 		}
 	}
 		
-	// To Do 1A: Compute GST amount 7% for Singapore, round the figure to 2 decimal places
-	$_SESSION["Tax"] = round($_SESSION["SubTotal"]*0.09, 2);
-
-	
-	// To Do 1B: Compute Shipping charge - S$2.00 per trip
-	$_SESSION["ShipCharge"] = 2.00;
 	
 	//Data to be sent to PayPal
 	$padata = '&CURRENCYCODE='.urlencode($PayPalCurrencyCode).
 			  '&PAYMENTACTION=Sale'.
 			  '&ALLOWNOTE=1'.
 			  '&PAYMENTREQUEST_0_CURRENCYCODE='.urlencode($PayPalCurrencyCode).
-			  '&PAYMENTREQUEST_0_AMT='.urlencode($_SESSION["SubTotal"] +
-				                                 $_SESSION["Tax"] + 
-												 $_SESSION["ShipCharge"]).
+			  '&PAYMENTREQUEST_0_AMT='.urlencode($_SESSION["SubTotal"]).
 			  '&PAYMENTREQUEST_0_ITEMAMT='.urlencode($_SESSION["SubTotal"]). 
-			  '&PAYMENTREQUEST_0_SHIPPINGAMT='.urlencode($_SESSION["ShipCharge"]). 
-			  '&PAYMENTREQUEST_0_TAXAMT='.urlencode($_SESSION["Tax"]). 	
 			  '&BRANDNAME='.urlencode("Gifted Treasure").
 			  $paypal_data.				
 			  '&RETURNURL='.urlencode($PayPalReturnURL ).

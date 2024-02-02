@@ -182,13 +182,9 @@ function getTaxRate($conn, $currentDate) {
 							<div class='mb-4 pb-2'>
 								<form method='post' action='shoppingCart.php'>";
 						echo "<select class='form-control' name='shipping_option' onChange='this.form.submit()'>
-<<<<<<< HEAD
 								<option value='standard' " . (isset($_POST["shipping_option"]) == 'standard' ? 'selected' : '') . ">Standard Delivery - $5.00</option>
 								<option value='express' " . (isset($_POST["shipping_option"]) == 'express' ? 'selected' : '') . ">Express Delivery - $8.00</option>
-=======
-								<option value='standard' " . ($_POST["shipping_option"] == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day) - $3.00</option>
-								<option value='express' " . ($_POST["shipping_option"] == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $5.00</option>
->>>>>>> 304e9de5412c84fed3c28b3e255b247817527e01
+
 							</select>
 							</form>
 						</div>";

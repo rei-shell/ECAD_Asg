@@ -40,8 +40,11 @@ function getProductImage($conn, $productID) {
                                 echo "<div id='myShopCart' style='margin:auto'>"; // Start a container
                                 if (isset($_SESSION["Cart"])) {
                                     include_once("mysql_conn.php");
-                                    $qry = "SELECT *, (Price * Quantity) AS Total
-                                            FROM ShopCartItem Where ShopCartID=?";
+                                   $qry = 'SELECT sc.*, p.Offered, p.OfferedPrice, (sc.Price * sc.Quantity) AS Total
+											FROM ShopCartItem sc
+											JOIN Product p ON sc.ProductID = p.ProductID
+											WHERE sc.ShopCartID=?';
+
                                     $stmt = $conn->prepare($qry);
                                     $stmt->bind_param("i", $_SESSION["Cart"]);
                                     $stmt->execute();
@@ -83,13 +86,24 @@ function getProductImage($conn, $productID) {
                                             echo "</form>";
                                         
                                             echo "</div>";
-                                        
-                                            $row["Total"] = $row["Price"] * $row["Quantity"];
-                                            $formattedPrice = number_format($row["Total"], 2);
+											 if ($row["Offered"] == 1) {
+												$row["Total"] = $row["OfferedPrice"] * $row["Quantity"];
 
-                                            echo "<div class='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>";
-                                            echo "<h6 class='mb-0'>$ $formattedPrice</h6>";
-                                            echo "</div>";
+ 												echo "<div class='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>";
+												echo "<h6 class='text-black mb-0'><del>$ " . number_format($row["Price"] * $row["Quantity"], 2) . "</del></h6>";							
+												echo "<h6 class='text-success mb-0'>$ " . number_format($row["Total"], 2) . "</h6>";
+												echo "</div>";
+
+
+
+											} else {
+												$row["Total"] = $row["Price"] * $row["Quantity"];
+
+												echo "<div class='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>";
+												echo "<h6 class='mb-0'>$" . number_format($row["Total"], 2) . "</h6>";
+												echo "</div>";
+											}
+                    
                                             echo "<div class='col-md-1 col-lg-1 col-xl-1 text-end'>";
                                             echo "<form action='cartFunctions.php' method='post'>";
                                             echo "<input type='hidden' name='action' value='remove'/>";
@@ -102,16 +116,28 @@ function getProductImage($conn, $productID) {
                                             $subTotal += $row["Total"];
                                         }
 
+
                                         echo "</div>"; // End of the container
                                         echo "</div>"; // End of card-body
                                         echo "</div>"; // End of card
                                         echo "</div>"; // End of col-lg-8
                                     } else {
-                                        echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+										echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+										echo "</div>"; // End of container when the cart is empty
+                                        echo "</div>"; // End of card-body when the cart is empty
+                                        echo "</div>"; // End of card when the cart is empty
+                                        echo "</div>"; 
+                                        $conn->close(); // Close the database connection
                                     }
-                                    $conn->close(); // Close the database connection
+
                                 } else {
-                                    echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+									echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
+									echo "</div>"; // End of container when the cart is empty
+                                    echo "</div>"; // End of card-body when the cart is empty
+                                    echo "</div>"; // End of card when the cart is empty
+                                    echo "</div>";
+									$conn->close(); // Close the database connection
+
                                 }
                                 ?>
 
@@ -205,7 +231,10 @@ function getProductImage($conn, $productID) {
             </div>
     </div>
 
-	
+				</div>
+				</div>
+				</div>
+
 
 <?php
 include("footer.php"); 

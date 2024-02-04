@@ -1,8 +1,11 @@
 <?php
 // Detect the current session
 session_start();
-// Include the Page Layout header
-include("header.php"); 
+
+if(!isset($_POST["email"])){
+	header("Location: login.php");
+	exit;
+}
 
 // Reading inputs entered in previous page
 $email = $_POST["email"];
@@ -52,7 +55,8 @@ while ($row = $result->fetch_array()){
 }
 
 if ($isfound == false) {
-	echo  "<h3 style='color:red'>Invalid Login Credentials</h3>";
+	header("Location: login.php?errorMsg=Invalid Login Credentials");
+	exit;
 }
 	
 // Include the Page Layout footer

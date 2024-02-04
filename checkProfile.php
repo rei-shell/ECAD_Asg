@@ -28,16 +28,80 @@ $stmt->bind_param("si",$email,$shopperid);
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
+$isUpdated;
+//Email is existing in use
 if ($result->num_rows > 0) {
-    echo "<h3 style='color:green'>Email already exist, please change to another one</h3>";
-    exit;
+    $isUpdated = false;
 }
-// Define select SQL statement
-$qry = "UPDATE Shopper SET name=?,birthdate=?,address=?,country=?,phone=?,email=?,password= COALESCE(?,password) WHERE ShopperID=?";
-$stmt = $conn->prepare($qry);
-$stmt->bind_param("sssssssi",$name,$dob,$address,$country,$phone,$email,$pwd,$shopperid);
-$stmt->execute();
-$stmt->close();
-
-echo "<h3 style='color:green'>Profile successfully updated!</h3>";
+else{
+    // Define select SQL statement
+    $qry = "UPDATE Shopper SET name=?,birthdate=?,address=?,country=?,phone=?,email=?,password= COALESCE(?,password) WHERE ShopperID=?";
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("sssssssi",$name,$dob,$address,$country,$phone,$email,$pwd,$shopperid);
+    $stmt->execute();
+    $stmt->close();
+    $isUpdated = true;
+}if($isUpdated==true){
 ?>
+    <main class="d-flex justify-content-center align-items-center">
+        <div class="wrapper">
+        <div class="row mb-4">
+            <img src="https://static-00.iconduck.com/assets.00/success-icon-512x512-qdg1isa0.png">
+        </div>
+            <div class="row mb-4">
+                <h5>Profile updated successfully!</h5> 
+            </div>
+            <div>
+                <a href="profile.php">
+                    <button class="btn btn-primary" type="submit">Back to profile</button>
+                </a>
+            </div>
+        </div>
+    </main>
+<?php
+    }else{ ?>
+    <main class="d-flex justify-content-center align-items-center">
+        <div class="wrapper">
+        <div class="row mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/6659/6659895.png">
+        </div>
+            <div class="row mb-4">
+                <h5>Email already in used, change another one.</h5> 
+            </div>
+            <div>
+                <a href="profile.php">
+                    <button class="btn btn-primary" type="submit">Back to profile</button>
+                </a>
+            </div>
+        </div>
+    </main>
+        
+<?php
+}
+?>
+<style>
+main{
+    height:100vh;
+}
+.wrapper img{
+    width:120px;
+    margin:auto;
+}
+.wrapper{
+    background-color: rgb(247, 243, 243);
+    padding: 40px;
+    border-radius: 15px;
+    text-align:center;
+    width:700px;
+}
+
+.wrapper h5{
+    font-weight:700;
+}
+.wrapper a{
+    color: black;
+}
+.wrapper span{
+    font-weight:bold;
+}
+</style>

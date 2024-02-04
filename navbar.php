@@ -6,6 +6,7 @@ $content2 = "<a href='login.php'><span>Login</span></a>";
 $content3 = "Gifted Treasure<br/>";
 $profile = "";
 $cart = "";
+$feedback="";
 
 if(isset($_SESSION["ShopperName"])) { 
     //Display a greeting message, Change Password and logout links 
@@ -21,6 +22,12 @@ if(isset($_SESSION["ShopperName"])) {
             '.$_SESSION["NumCartItem"].'
         <span class="visually-hidden">unread messages</span></i></a>';
     }
+    $feedback .= "<li class='nav-item " . (basename($_SERVER['PHP_SELF']) == 'sendFeedback.php' ? 'active' : '') . "'>
+    <a class='nav-link' href='sendFeedback.php'>
+    Feedback
+    </a>
+</li>";
+
 }
 ?>
 
@@ -45,6 +52,7 @@ if(isset($_SESSION["ShopperName"])) {
                 Shop
                 </a>
             </li>
+            <?php echo $feedback?>
             </ul>
             <div class="user_option">
                 <span class="mr-4"><?php echo $content1; ?></span>

@@ -48,6 +48,12 @@
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
     
+    <?php
+    // Check if the current page is login.php
+    if (basename($_SERVER['PHP_SELF']) === 'login.php') {
+        echo '<link href="css/loginAndRegister.css" rel="stylesheet"/>';
+    }
+    ?>
     
 </head>
 

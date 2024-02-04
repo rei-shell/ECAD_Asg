@@ -31,143 +31,136 @@ while ($row = $result->fetch_array()) {
     $country=$row["Country"];
 }
 ?>
-<script type="text/javascript">
-function validateForm() {
-    var email = $("#email").val();
-    var name = $("#name").val();
-    var phone = $("#phone").val();
-    var dob = new Date($("#dob").val());
-    // Get the current date
-    var currentDate = new Date();
 
-    if (name == "" || name == null){
-        alert("Name cannot leave empty")
-        return false//Cancel submission
-    }else if (email == "" || email == null){
-        alert("Invalid email address")
-        return false//Cancel submission
-    }
-    else if (phone.length != 8) {
-        alert("Please enter a 8-digit phone number.")
-        return false//Cancel submission
-    }else if (phone.substr(0,1) != "6" &&
-        phone.substr(0,1) != "8" &&
-        phone.substr(0,1) != "9" ){
-        alert("Phone number in Singapore should start with 6, 8 or 9.");
-        return false; //Cancel submission
-    }else if (dob == "Invalid Date" || dob > currentDate){
-        alert("Invalid date of birth");
-        return false//Cancel submission
-    }
-    // Phone number is valid
-    return true; // Allow submission
-    alert(phone)
-}
-</script>
+<main class="d-flex justify-content-center align-items-center">
+    <div class="wrapper container">
+        <form name="checkProfile" action="checkProfile.php" method="post" onsubmit="return validateForm()" style="padding-left:50px; padding-right:50px;">
+            <!-- 1st row header row -->
+            <div class="mb-3 row">
+                <div class="col-sm-9">
+                    <span class="page-title">Edit my profile</span>
+                </div>
+            </div>
+            <div class="row">
 
-<form action="checkProfile.php" method="post" onsubmit="return validateForm()" style="padding-left:50px; padding-right:50px;">
-    <!-- 1st row header row -->
-    <div class="mb-3 row">
-        <div class="col-sm-9 offset-sm-3" style="margin-top:40px; margin-bottom: 15px;">
-            <span class="page-title">Edit my profile</span>
-        </div>
+                <!-- 2nd row - name -->
+                <div class="mb-3 col-lg-6">
+                    <label class="col-form-label" for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name" value="<?php echo htmlspecialchars($name)?>" require/>
+                </div>
+
+                <!-- 2nd row - Entry of email address -->
+                <div class="mb-3 col-lg-6">
+                    <label class="col-form-label" for="email">Email address:</label>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php echo htmlspecialchars($email)?>"require/>
+                </div>
+
+                <!-- 2nd row - dob -->
+                <div class="mb-3 col-lg-4">
+                    <label class="col-form-label" for="dob">Date Of Birth</label>
+                    <input class="form-control" type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($dob)?>"/>
+                </div>
+
+                <!-- 2nd row - phone -->
+                <div class="mb-3 col-lg-4">
+                    <label class="col-form-label" for="phone">Phone No</label>
+                    <input class="form-control" type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($phone)?>"/>
+                </div>
+            
+                <!-- 2nd row - country -->
+                <div class="mb-3 col-lg-4">
+                    <label for="country" class="col-form-label">Country</label>
+                    <input class="form-control" list="countriesOption" name="country" id="country" placeholder="Type to search for a country" value="<?php echo htmlspecialchars($country)?>">
+                    <datalist id="countriesOption">
+                    <option value="Singapore">
+                    <option value="Malaysia">
+                    <option value="Vietnam">
+                    <option value="Indonesia">
+                    <option value="Thailand">
+                    </datalist>
+                </div>
+
+                <!-- 2nd row - address -->
+                <div class="mb-3 col-lg-12">
+                    <label class="col-form-label" for="address">Address</label>
+                    <textarea class="form-control" name="address" id="address" rows="2"><?php echo htmlspecialchars($address)?></textarea>
+                </div>
+                
+                <!-- 3rd row - Entry of password -->
+                <div class="mb-3">
+                    <label class="col-form-label" for="password">New Password</label>
+                    <input class="form-control" type="password" name="password" id="password"/>
+                </div>
+
+                <!-- 3rd row - re-Entry of password -->
+                <div class="mb-4">
+                    <label class="col-form-label" for="re-password">Re-enter New Password</label>
+                    <input class="form-control" type="password" name="re-password" id="re-password"/>
+                </div>
+
+                <!-- 4th row - Login button-->
+                <div class="mb-3 mt-4 d-grid gap-2">
+                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
+                </div>                          
+            </div>
+
+        </form>
     </div>
-
-    <!-- 2nd row - name -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="name">
-            Name
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="text" name="name" id="name" value="<?php echo htmlspecialchars($name)?>" require/>
-        </div>
-    </div>
-
-    <!-- 2nd row - Entry of email address -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="email">
-            Email address:
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="email" name="email" id="email" value="<?php echo htmlspecialchars($email)?>"require/>
-        </div>
-    </div>
-
-    <!-- 2nd row - dob -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="dob">
-            Date Of Birth
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="date" name="dob" id="dob" value="<?php echo htmlspecialchars($dob)?>"/>
-        </div>
-    </div>
-
-    <!-- 2nd row - phone -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="phone">
-            Phone No
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($phone)?>"/>
-        </div>
-    </div>
-
-    <!-- 2nd row - address -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="address">
-            Address
-        </label>
-        <div class="col-sm-9">
-            <textarea class="form-control" name="address" id="address" rows="4"><?php echo htmlspecialchars($address)?></textarea>
-        </div>
-    </div>
-
-    
-    <!-- 2nd row - country -->
-    <div class="mb-3 row">
-        <label for="country" class="col-sm-3 col-form-label">Country</label>
-        <div class="col-sm-9">
-            <input class="form-control" list="countriesOption" name="country" id="country" placeholder="Type to search for a country" value="<?php echo htmlspecialchars($country)?>">
-            <datalist id="countriesOption">
-            <option value="Singapore">
-            <option value="Malaysia">
-            <option value="Vietnam">
-            <option value="Indonesia">
-            <option value="Thailand">
-            </datalist>
-        </div>
-    </div>
-    
-    <!-- 3rd row - Entry of password -->
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="password">
-           New Password
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="password" name="password" id="password"/>
-        </div>
-    </div>
-
-    <!-- 3rd row - re-Entry of password -->
-        <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label" for="re-password">
-            Re-enter New Password
-        </label>
-        <div class="col-sm-9">
-            <input class="form-control" type="password" name="re-password" id="re-password"/>
-        </div>
-    </div>
-
-    <!-- 4th row - Login button-->
-    <div class="mb-3 row">
-        <div class="col-sm-9 offset-sm-3">
-            <button class="btn btn-primary" type="submit">Save</button>
-        </div>
-    </div>
-
-</form>
+</main>
 <?php 
 // Include the Page Layout footer
 include("footer.php"); 
 ?>
+<script type="text/javascript">
+function validateForm() {
+
+    //Check name
+    if(document.checkProfile.name.value.trim()===""){
+        alert("Name cannot leave empty");
+        return false; //Cancel submission
+    }
+
+    //Check email
+    if(document.checkProfile.email.value.trim()===""){
+        alert("Email cannot leave empty");
+        return false; //Cancel submission
+    }
+
+    //Check dob
+    if(document.checkProfile.dob.value !== null){
+        if(new Date(document.checkProfile.dob.value) > new Date())
+        {
+            alert("Invalid DOB");
+            return false; //Cancel submission
+        }
+    }
+    //Check phone
+    if(document.checkProfile.phone.value.trim() != ""){
+        var str = document.checkProfile.phone.value.trim();
+        if(str.length != 8){        
+            alert('Please enter a 8-digit phone number.');
+            return false
+        }
+        else if (str.substr(0,1) != "6" &&
+                 str.substr(0,1) != "8" &&
+                 str.substr(0,1) != "9" ){                    
+            alert('Phone number in Singapore should start with 6, 8 or 9.');
+            return false; //Cancel submission
+        }
+    }
+
+    //
+
+    return true; //no error in the form
+}
+</script>
+<style>
+main{
+    background-color: rgb(247, 243, 243);
+}
+.wrapper{
+    padding: 40px;
+    border-radius: 15px;
+}
+
+</style>

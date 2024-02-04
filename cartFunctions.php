@@ -41,7 +41,7 @@ function addItem() {
   	// If the ProductID exists in the shopping cart, 
   	// update the quantity, else add the item to the Shopping Cart.
   	$pid = $_POST["product_id"];
-	  $productName = isset($_POST["name"]) ? $_POST["name"] : '';
+	$productName = isset($_POST["name"]) ? $_POST["name"] : '';
 	$quantity = $_POST["quantity"];
 	$qry = "SELECT * FROM ShopCartItem WHERE ShopCartID=? AND ProductID=?";
 	$stmt = $conn->prepare($qry);
@@ -50,7 +50,7 @@ function addItem() {
 	$result =  $stmt->get_result();
 	$stmt->close();
 	// Check the quantity in stock
-	$qryStock = "SELECT Quantity FROM Product WHERE ProductID=?";
+	$qryStock = "SELECT Quantity, ProductImage, ProductTitle FROM Product WHERE ProductID=?";
 	$stmtStock = $conn->prepare($qryStock);
 	$stmtStock->bind_param("i", $pid);
 	$stmtStock->execute();
@@ -59,10 +59,14 @@ function addItem() {
 	if ($resultStock->num_rows > 0) {
         $rowStock = $resultStock->fetch_assoc();
         $quantityInStock = $rowStock["Quantity"];
+		$productName = $rowStock["ProductTitle"];
+		$productImage = "./Images/Products/$rowStock[ProductImage]";
 
         if ($quantity > $quantityInStock) {
-            echo "Product $pid : $productName is out of stock! <br />";
-            echo "Please return to the shopping cart to amend your purchase. <br />";
+			include("header.php");
+			echo "Product Image: <img src='$productImage' alt='$productName' width='200' height='200'><br>";
+            echo "Product $pid : <b>$productName</b> is out of stock! <br />";
+           // echo "Please return to the shopping cart to amend your purchase. <br />";
             include("footer.php");
             exit;
         }

@@ -14,7 +14,7 @@ if (! isset($_SESSION["ShopperID"])) { // Check if user logged in
 
 <main class="d-flex justify-content-center align-items-center">
     <div class="wrapper">
-        <form name="sendfeedback" action="index.php" method="post" onsubmit="return validateForm()">
+        <form name="sendfeedback" method="post" onsubmit="return validateForm()">
         <h5>Give feedback</h5>
         <span>How would you rate your experience?</span>
             <div class="row mt-4">

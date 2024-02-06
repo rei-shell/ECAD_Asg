@@ -175,5 +175,9 @@ function validateSignUpForm()
 
     return true;  // No error found
 }
+if($('input[name="email"]').next('span').text() == 'Email aready Exist'){
+        const main = $('#main');
+        main.addClass('right-panel-active');
+    }
 </script>
 

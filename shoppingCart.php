@@ -157,7 +157,6 @@ function getTaxRate($conn, $currentDate) {
                                         echo "</div>"; // End of card-body when the cart is empty
                                         echo "</div>"; // End of card when the cart is empty
                                         echo "</div>"; 
-                                        $conn->close(); // Close the database connection
                                     }
 
                                 } else {
@@ -166,7 +165,7 @@ function getTaxRate($conn, $currentDate) {
                                     echo "</div>"; // End of card-body when the cart is empty
                                     echo "</div>"; // End of card when the cart is empty
                                     echo "</div>";
-									$conn->close(); // Close the database connection
+                                    
 
                                 }
                                 ?>

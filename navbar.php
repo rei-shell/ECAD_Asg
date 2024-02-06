@@ -16,12 +16,12 @@ if(isset($_SESSION["ShopperName"])) {
 	//To Do 2 (Practical 4) - 
     //Display number of item in cart
     if (isset($_SESSION["NumCartItem"])){
-        $profile.="<a href='profile.php'><i class='fa fa-user' aria-hidden='true'></i></a>";
         $cart.='<a href="shoppingCart.php"><i class="fa fa-shopping-bag position-relative" aria-hidden="true">  
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             '.$_SESSION["NumCartItem"].'
         <span class="visually-hidden">unread messages</span></i></a>';
     }
+    $profile.="<a href='profile.php'><i class='fa fa-user' aria-hidden='true'></i></a>";
     $feedback .= "<li class='nav-item " . (basename($_SERVER['PHP_SELF']) == 'sendFeedback.php' ? 'active' : '') . "'>
     <a class='nav-link' href='sendFeedback.php'>
     Feedback

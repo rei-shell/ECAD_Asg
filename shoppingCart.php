@@ -218,15 +218,23 @@ function getTaxRate($conn, $currentDate)
                             </div>
 
                             <?php
-                            if (!isset($_POST["shipping_option"]) || $_POST["shipping_option"] == "default") {
-                                // You can choose to hide the PayPal button or show a message
-                                // based on whether the shipping option is the default.
-                                echo "<p>Please select a shipping option before proceeding.</p>";
-                            } else {
+                              if($subTotal > 200){
                                 echo "<form method='post' action='checkoutProcess.php'>";
                                 echo "<input type='image' style='float:right;width:200px' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'>";
                                 echo "</form></p>";
                             }
+                            else if (!isset($_POST["shipping_option"]) || $_POST["shipping_option"] == "default"){
+                                echo "<p>Please select a shipping option before proceeding.</p>";
+
+                            }
+                           
+                        
+                            else {
+                                echo "<form method='post' action='checkoutProcess.php'>";
+                                echo "<input type='image' style='float:right;width:200px' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'>";
+                                echo "</form></p>";
+                            }
+                           
                             ?>
 
                         </div>

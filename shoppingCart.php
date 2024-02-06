@@ -189,6 +189,7 @@ function getTaxRate($conn, $currentDate) {
 						</div>
 
 						<?php
+
 						if ($subTotal > 200) {
 								$row["ShipCharge"] = 0;
 								echo "<div class='d-flex justify-content-between mb-4'>
@@ -208,6 +209,7 @@ function getTaxRate($conn, $currentDate) {
                                     </form>
                                 </div>";
 
+            
 						// Set the shipping charge based on the selected option
 						if (isset($_POST["shipping_option"])) {
 							if ($_POST["shipping_option"] == "standard") {
@@ -215,9 +217,10 @@ function getTaxRate($conn, $currentDate) {
 							} else if ($_POST["shipping_option"] == "express") {
 								$row["ShipCharge"] = 10;
 							}
+                            
 						}
 						else{
-								$row["ShipCharge"] = 5;
+								$row["ShipCharge"] = 0;
 							}
 					}
 
@@ -235,6 +238,9 @@ function getTaxRate($conn, $currentDate) {
 						$_SESSION["Tax"] = $taxAmount;
 						$_SESSION["ShipCharge"] = $row["ShipCharge"];
 						$totalWithShipping = $subTotal + $row["ShipCharge"] + $taxAmount;
+
+
+
 
 						// Update session subtotal including shipping fee
 						$_SESSION["FinalTotal"] = round($totalWithShipping, 2);		
